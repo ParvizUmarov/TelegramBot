@@ -31,3 +31,5 @@ build/
 
 ### VS Code ###
 .vscode/
+
+TelegramBot/blob/main/src/main/resources/application.properties
