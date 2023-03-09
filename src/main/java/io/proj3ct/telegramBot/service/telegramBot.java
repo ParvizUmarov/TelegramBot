@@ -1,14 +1,20 @@
 package io.proj3ct.telegramBot.service;
 
 
+import io.proj3ct.telegramBot.Helper;
 import io.proj3ct.telegramBot.config.BotConfig;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import org.telegram.telegrambots.meta.api.methods.commands.SetMyCommands;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.api.objects.commands.BotCommand;
+import org.telegram.telegrambots.meta.api.objects.commands.scope.BotCommandScopeDefault;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.ErrorManager;
 
 @Component
 public class telegramBot extends TelegramLongPollingBot {
@@ -63,17 +69,22 @@ public class telegramBot extends TelegramLongPollingBot {
         sendMessage(chatId,answer);
     }
     private void mondayCommand(long chatId){
-        String answer = "Расписание на Понедельник\n" +
-                "Адрес -- Большая Морская 18\n" +
-                "\n" +
-                "Время 15:20 - 16:45\n" +
-                "1. Физра \n" +
-                "Аудитория -- Спортзал\n" +
-                "\n" +
-                "Время 16:55 - 18:20\n" +
-                "2. Физика(лаб)\n" +
-                "Аудитория -- 334 ";
-
+        Boolean isWeekOdd = Helper.isCurrentWeekOdd();
+        String answer = "";
+        if(isWeekOdd) {
+            answer = "Расписание на Понедельник\n" +
+                    "Адрес -- Большая Морская 18\n" +
+                    "\n" +
+                    "Время 15:20 - 16:45\n" +
+                    "1. Физра \n" +
+                    "Аудитория -- Спортзал\n" +
+                    "\n" +
+                    "Время 16:55 - 18:20\n" +
+                    "2. Физика(лаб)\n" +
+                    "Аудитория -- 334 ";
+        }else {
+            answer = "Week is even";
+        }
         sendMessage(chatId,answer);
     }
 
@@ -157,7 +168,22 @@ public class telegramBot extends TelegramLongPollingBot {
     final BotConfig config;
 
     public telegramBot(BotConfig config){
+
         this.config = config;
+        List<BotCommand> listofCommands = new ArrayList<>();
+        listofCommands.add(new BotCommand("/monday", "get schedule for this day"));
+        listofCommands.add(new BotCommand("/tuesday", "get schedule for this day"));
+        listofCommands.add(new BotCommand("/wednesday", "get schedule for this day"));
+        listofCommands.add(new BotCommand("/thursday", "get schedule for this day"));
+        listofCommands.add(new BotCommand("/friday", "get schedule for this day"));
+        listofCommands.add(new BotCommand("/saturday", "get schedule for this day"));
+        listofCommands.add(new BotCommand("/sunday", "get schedule for this day"));
+        try {
+            this.execute(new SetMyCommands(listofCommands, new BotCommandScopeDefault(), null));
+        } catch (TelegramApiException e) {
+
+        }
+
     }
     @Override
     public String getBotUsername() {
