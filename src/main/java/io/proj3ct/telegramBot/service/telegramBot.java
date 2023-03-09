@@ -24,14 +24,120 @@ public class telegramBot extends TelegramLongPollingBot {
                 case "/start":
                     startCommandReceived(chatId, update.getMessage().getChat().getFirstName());
                     break;
-                default: sendMessage(chatId, "Все все !!");
+                case "/monday":
+                    mondayCommand(chatId);
+                    break;
+                case "/tuesday":
+                    tuesdayCommand(chatId);
+                    break;
+                case "/wednesday":
+                    wednesdayCommand(chatId);
+                    break;
+                case "/thursday":
+                    thursdayCommand(chatId);
+                    break;
+                case "/friday":
+                    fridayCommand(chatId);
+                    break;
+
+
             }
 
         }
     }
     private void startCommandReceived(long chatId, String name){
 
-        String answer = "ЭЭЭ салам алейкум " + name + " вискачишь один на один";
+        String answer = "Привет " + name + ", добро пожаловать в бот группы 1-МД-16\n" +
+                "Чтобы узнать расписание то следуйте инструкции\n" +
+                "===============================================\n" +
+                "Инструкция:\n" +
+                "Пример:\n" +
+                "/monday -- расписание на понедельник,\n" +
+                "/tuesday -- расписание на вторник\n" +
+                "/wednesday -- расписание на среду\n" +
+                "/thursday -- расписание на четверг\n" +
+                "/friday -- расписание на пятницу\n" +
+                "после </> нужно указать день недели и вы получите соотвествующие расписание\n" +
+                "На этом все удачи вам в учебе :)";
+
+        sendMessage(chatId,answer);
+    }
+    private void mondayCommand(long chatId){
+        String answer = "Расписание на Понедельник\n" +
+                "Адрес -- Большая Морская 18\n" +
+                "\n" +
+                "Время 15:20 - 16:45\n" +
+                "1. Физра \n" +
+                "Аудитория -- Спортзал\n" +
+                "\n" +
+                "Время 16:55 - 18:20\n" +
+                "2. Физика(лаб)\n" +
+                "Аудитория -- 334 ";
+
+        sendMessage(chatId,answer);
+    }
+
+    private void tuesdayCommand(long chatId){
+        String answer = "Расписание на Вторник\n" +
+                "Адрес: Вознесенский проспект 54\n" +
+                "\n" +
+                "Время: 8:30 - 9:55\n" +
+                "1. Философия (прак)\n" +
+                "Аудитория -- 406\n" +
+                "\n" +
+                "Время: 10:05 - 11:30\n" +
+                "2. Философия (лекц)\n" +
+                "Аудитория -- 406\n" +
+                "\n" +
+                "Время: 11:40 - 13:05\n" +
+                "3. Математика (лекц)\n" +
+                "Аудитория -- 406";
+
+        sendMessage(chatId,answer);
+    }
+    private void wednesdayCommand(long chatId){
+        String answer = "Расписание на Среду\n" +
+                "Адрес -- Большая Морская 18\n" +
+                "\n" +
+                "Время: 10:05 - 11:30\n" +
+                "1. Иностранный язык\n" +
+                "Аудитория -- 412\n" +
+                "\n" +
+                "Время: 13:00\n" +
+                "2. Дистант\n" +
+                "Аудитория -- дом";
+
+        sendMessage(chatId,answer);
+    }
+    private void thursdayCommand(long chatId){
+        String answer = "Расписание на Четверг\n" +
+                "Адрес -- Вознесенский проспект 54\n" +
+                "\n" +
+                "Время: 10:05 - 11:30\n" +
+                "1. Основы системного анализа (лекц)\n" +
+                "Аудитория -- 401\n" +
+                "\n" +
+                "Время: 11:40 - 13:05\n" +
+                "2. Математика (прак)\n" +
+                "Аудитория -- 443\n" +
+                "\n" +
+                "Время: 13:45 - 15:10\n" +
+                "3. Администрирование компьютерных систем (прак)\n" +
+                "Аудитория -- 458\n" +
+                "\n" +
+                "Время: 15:20 - 16:45\n" +
+                "4. Социология (лекц)\n" +
+                "Аудитория -- 441\n" +
+                "\n" +
+                "Время: 16:55 - 18:20\n" +
+                "5. Социология (прак)\n" +
+                "Аудитория -- 441";
+
+        sendMessage(chatId,answer);
+    }
+    public void fridayCommand(long chatId){
+        String answer = "Расписание на пятницу\n" +
+                "Спать!!";
 
         sendMessage(chatId,answer);
     }
